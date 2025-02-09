@@ -47,7 +47,28 @@ export interface TeacherService {
 export interface TeacherOption {
   id: string;
   services: TeacherService[];
+  name: string;
+  hexColor: string;
 }
+
+export type Schedule = {
+  _id: string;
+  startTime: string;
+  endTime: string;
+  dayOfWeek: number;
+};
+
+export type TeacherResourceResource = {
+  _id: string;
+  name: string;
+  hexColor: string;
+};
+
+export type TeacherResource = {
+  resource: TeacherResourceResource;
+  schedules: Schedule[];
+  slugs: string[];
+};
 
 // Availability Types
 export interface Resource {

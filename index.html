@@ -9,6 +9,507 @@
     <link href="/node_modules/@fullcalendar/timegrid/main.css" rel="stylesheet" />
     <script type="module" src="/src/index.ts"></script>
     <script>
+      const teacherResources = [
+  {
+    "resource": {
+      "_id": "54ccde4f-9e90-48f0-9789-4d70f70024a2",
+      "name": "Andrea Oliveros",
+      "email": "andrea@thriveinspanish.com",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "82d5b303-a54f-433b-af99-216103528155"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "d717e6fc-085d-4696-be43-6a511d311038",
+      "eventsSchedule": {
+        "_id": "82d5b303-a54f-433b-af99-216103528155",
+        "scheduleOwnerId": "54ccde4f-9e90-48f0-9789-4d70f70024a2",
+        "firstSessionStart": "Fri Sep 02 2022 07:00:00 GMT-0500 (Central Daylight Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Thu Apr 04 2024 13:28:22 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Thu Apr 04 2024 13:28:22 GMT-0600 (Central Standard Time)",
+        "updated": "Tue Nov 12 2024 14:17:49 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Andrea Oliveros"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Thu Apr 04 2024 13:28:22 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "82d5b303-a54f-433b-af99-216103528155",
+        "scheduleOwnerId": "54ccde4f-9e90-48f0-9789-4d70f70024a2"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Wed Apr 03 2024 18:15:37 GMT-0600 (Central Standard Time)",
+        "name": "andrea-oliveros-1"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "76570209-101f-409b-af97-b445bdb63125",
+      "name": "Karen Aguayo",
+      "email": "contact@lakarencita.com",
+      "description": "CEO of Thrive in Spanish",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "e05bacf3-b2a0-448f-a0a9-08d04f985f32"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "3cad9d0e-4b89-425f-88d5-29c4ff1cb4e5",
+      "eventsSchedule": {
+        "_id": "e05bacf3-b2a0-448f-a0a9-08d04f985f32",
+        "scheduleOwnerId": "76570209-101f-409b-af97-b445bdb63125",
+        "firstSessionStart": "Mon Jan 24 2022 11:00:00 GMT-0600 (Central Standard Time)",
+        "lastSessionEnd": "Fri Feb 14 2025 11:00:00 GMT-0600 (Central Standard Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Mon Sep 02 2024 11:36:29 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Mon Sep 02 2024 11:36:29 GMT-0600 (Central Standard Time)",
+        "updated": "Mon Oct 21 2024 08:48:12 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Karen Aguayo"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Mon Sep 02 2024 11:36:29 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "e05bacf3-b2a0-448f-a0a9-08d04f985f32",
+        "scheduleOwnerId": "76570209-101f-409b-af97-b445bdb63125"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Wed Jan 12 2022 15:32:38 GMT-0600 (Central Standard Time)",
+        "name": "karen-aguayo"
+      },
+      {
+        "_createdDate": "Tue Apr 27 2021 20:45:03 GMT-0500 (Central Daylight Time)",
+        "name": "miembro-del-personal-1"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "836a8017-8192-4164-8dc0-858c1ec4f6b6",
+      "name": "Ruby",
+      "email": "raguayohk@gmail.com",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "3b3b1fcd-1728-4469-afe9-e191b52f2cf9"
+      ],
+      "status": "CREATED",
+      "wixUserId": "19d9f7e9-b42d-4f6c-819a-f5faca5d29fb",
+      "eventsSchedule": {
+        "_id": "3b3b1fcd-1728-4469-afe9-e191b52f2cf9",
+        "scheduleOwnerId": "836a8017-8192-4164-8dc0-858c1ec4f6b6",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Mon May 29 2023 09:13:39 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Mon May 29 2023 09:13:39 GMT-0600 (Central Standard Time)",
+        "updated": "Mon May 29 2023 09:13:39 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Ruby"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [
+            "[Object]"
+          ],
+          "start": "Sun May 28 2023 18:00:00 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "3b3b1fcd-1728-4469-afe9-e191b52f2cf9",
+        "scheduleOwnerId": "836a8017-8192-4164-8dc0-858c1ec4f6b6"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Wed Aug 17 2022 14:34:39 GMT-0500 (Central Daylight Time)",
+        "name": "ruby"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "9bf57dad-d5e4-4e38-8015-2bc05f9a30c2",
+      "name": "Saray González",
+      "email": "saray.drew.sykes@gmail.com",
+      "description": "Spanish tutor",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "be4ff19a-0987-438c-8598-47241af3cb6c"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "a057173c-d4a0-41e2-92f7-43f6ad7f2670",
+      "eventsSchedule": {
+        "_id": "be4ff19a-0987-438c-8598-47241af3cb6c",
+        "scheduleOwnerId": "9bf57dad-d5e4-4e38-8015-2bc05f9a30c2",
+        "firstSessionStart": "Mon Jan 27 2025 19:00:00 GMT-0600 (Central Standard Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Mon Jan 27 2025 21:19:06 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Mon Jan 27 2025 21:19:06 GMT-0600 (Central Standard Time)",
+        "updated": "Fri Jan 31 2025 21:16:34 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Saray González"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Mon Jan 27 2025 21:19:06 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "be4ff19a-0987-438c-8598-47241af3cb6c",
+        "scheduleOwnerId": "9bf57dad-d5e4-4e38-8015-2bc05f9a30c2"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Mon Jan 27 2025 21:19:08 GMT-0600 (Central Standard Time)",
+        "name": "saray-gonzález"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "b4a033b9-795a-4b76-957d-3ccd0db911c1",
+      "name": "Mireya Hernandez",
+      "email": "mireyaaguayo.hdez@gmail.com",
+      "description": "Spanish tutor",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "17f07cf9-40de-4653-b166-83ab1211d9f9"
+      ],
+      "status": "CREATED",
+      "wixUserId": "9d614e64-51ed-4595-8731-d975871737f9",
+      "eventsSchedule": {
+        "_id": "17f07cf9-40de-4653-b166-83ab1211d9f9",
+        "scheduleOwnerId": "b4a033b9-795a-4b76-957d-3ccd0db911c1",
+        "firstSessionStart": "Tue Oct 18 2022 07:00:00 GMT-0500 (Central Daylight Time)",
+        "lastSessionEnd": "Tue Oct 18 2022 13:00:00 GMT-0500 (Central Daylight Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Fri Jun 14 2024 21:05:26 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Fri Jun 14 2024 21:05:26 GMT-0600 (Central Standard Time)",
+        "updated": "Fri Jun 14 2024 21:05:26 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Mireya Hernandez"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Fri Jun 14 2024 21:05:26 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "17f07cf9-40de-4653-b166-83ab1211d9f9",
+        "scheduleOwnerId": "b4a033b9-795a-4b76-957d-3ccd0db911c1"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Sun May 01 2022 14:19:09 GMT-0500 (Central Daylight Time)",
+        "name": "mireya-hernandez"
+      },
+      {
+        "_createdDate": "Sun Apr 17 2022 17:20:05 GMT-0500 (Central Daylight Time)",
+        "name": "native-speaker"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "d31de1f0-c7c8-4525-8730-91bb5fe31aea",
+      "name": "Thrive in Spanish  - Karen",
+      "email": "contact@thriveinspanish.com",
+      "description": "Customer Service",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "c16eae29-cc48-46f3-97f7-fbab47a070a4"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "f3c39977-fc30-4670-a298-621474edf85f",
+      "eventsSchedule": {
+        "_id": "c16eae29-cc48-46f3-97f7-fbab47a070a4",
+        "scheduleOwnerId": "d31de1f0-c7c8-4525-8730-91bb5fe31aea",
+        "firstSessionStart": "Fri Sep 02 2022 07:00:00 GMT-0500 (Central Daylight Time)",
+        "lastSessionEnd": "Wed Aug 07 2024 10:00:00 GMT-0600 (Central Standard Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Wed Aug 07 2024 11:11:27 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Wed Aug 07 2024 11:11:27 GMT-0600 (Central Standard Time)",
+        "updated": "Wed Aug 07 2024 11:11:27 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Thrive in Spanish  - Karen"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Wed Aug 07 2024 11:11:27 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "c16eae29-cc48-46f3-97f7-fbab47a070a4",
+        "scheduleOwnerId": "d31de1f0-c7c8-4525-8730-91bb5fe31aea"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Mon Aug 05 2024 12:46:41 GMT-0600 (Central Standard Time)",
+        "name": "thrive-in-spanish-karen"
+      },
+      {
+        "_createdDate": "Mon Apr 08 2024 18:39:32 GMT-0600 (Central Standard Time)",
+        "name": "thrive-in-spanish"
+      },
+      {
+        "_createdDate": "Wed Apr 03 2024 18:15:42 GMT-0600 (Central Standard Time)",
+        "name": "andrea-oliveros-2"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "e6b6108c-92bc-462b-937c-dab386909fd2",
+      "name": "business",
+      "tags": [
+        "business"
+      ],
+      "scheduleIds": [
+        "749dff94-6eab-47ba-9fc6-c271cd87d4d1"
+      ],
+      "status": "CREATED",
+      "eventsSchedule": {
+        "_id": "749dff94-6eab-47ba-9fc6-c271cd87d4d1",
+        "scheduleOwnerId": "e6b6108c-92bc-462b-937c-dab386909fd2",
+        "firstSessionStart": "Fri Sep 02 2022 07:00:00 GMT-0500 (Central Daylight Time)",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Mon May 29 2023 09:13:43 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Mon May 29 2023 09:13:43 GMT-0600 (Central Standard Time)",
+        "updated": "Mon May 29 2023 09:13:43 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "business"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Mon May 29 2023 09:13:43 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "749dff94-6eab-47ba-9fc6-c271cd87d4d1",
+        "scheduleOwnerId": "e6b6108c-92bc-462b-937c-dab386909fd2"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Tue Apr 27 2021 20:45:02 GMT-0500 (Central Daylight Time)",
+        "name": "business"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "eda6f8ac-9fdb-485c-9e83-bae94cda9439",
+      "name": "Leslye Aguayo",
+      "email": "leslye@thriveinspanish.com",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "2d6e5758-21fe-4019-b861-ed0115d706c9"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "7784eccb-44f5-4720-92a7-bfe544c64748",
+      "eventsSchedule": {
+        "_id": "2d6e5758-21fe-4019-b861-ed0115d706c9",
+        "scheduleOwnerId": "eda6f8ac-9fdb-485c-9e83-bae94cda9439",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Tue Aug 20 2024 15:04:41 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Tue Aug 20 2024 15:04:41 GMT-0600 (Central Standard Time)",
+        "updated": "Tue Aug 20 2024 15:04:41 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Leslye Aguayo"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [
+            "[Object]"
+          ],
+          "start": "Sun May 28 2023 18:00:00 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "2d6e5758-21fe-4019-b861-ed0115d706c9",
+        "scheduleOwnerId": "eda6f8ac-9fdb-485c-9e83-bae94cda9439"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Tue Aug 20 2024 15:02:55 GMT-0600 (Central Standard Time)",
+        "name": "leslye-aguayo"
+      }
+    ]
+  },
+  {
+    "resource": {
+      "_id": "f624bc31-9974-4a7c-ade5-000150d36596",
+      "name": "Mildred Camarillo Rosas",
+      "email": "mildredtareas@gmail.com",
+      "tags": [
+        "staff"
+      ],
+      "scheduleIds": [
+        "e3735c93-7664-4b5c-b876-039096b568b7"
+      ],
+      "status": "UPDATED",
+      "wixUserId": "d1cc2fb6-2459-46e1-b347-92cc23dae8f0",
+      "eventsSchedule": {
+        "_id": "e3735c93-7664-4b5c-b876-039096b568b7",
+        "scheduleOwnerId": "f624bc31-9974-4a7c-ade5-000150d36596",
+        "timeZone": "America/Mexico_City",
+        "intervals": [],
+        "tags": [],
+        "availability": {
+          "start": "Mon Sep 02 2024 15:02:00 GMT-0600 (Central Standard Time)",
+          "linkedSchedules": [],
+          "locations": [],
+          "useDefaultLocation": true
+        },
+        "totalNumberOfParticipants": 0,
+        "participants": [],
+        "status": "CREATED",
+        "created": "Mon Sep 02 2024 15:02:00 GMT-0600 (Central Standard Time)",
+        "updated": "Mon Nov 18 2024 11:39:10 GMT-0600 (Central Standard Time)",
+        "version": 0,
+        "inheritedFields": [],
+        "scheduleOwnerName": "Mildred Camarillo Rosas"
+      }
+    },
+    "schedules": [
+      {
+        "availability": {
+          "linkedSchedules": [],
+          "start": "Mon Sep 02 2024 15:02:00 GMT-0600 (Central Standard Time)"
+        },
+        "_id": "e3735c93-7664-4b5c-b876-039096b568b7",
+        "scheduleOwnerId": "f624bc31-9974-4a7c-ade5-000150d36596"
+      }
+    ],
+    "slugs": [
+      {
+        "_createdDate": "Mon Sep 02 2024 14:54:04 GMT-0600 (Central Standard Time)",
+        "name": "mildred-camarillo-rosas"
+      }
+    ]
+  }
+];
         const plans = [
   {
     "_id": "854a6b85-4827-4c4a-81b8-5916063f9bff",
@@ -131375,6 +131876,10 @@
                 return plans.plans
             }
         };
+
+        const getTeacherResources = async () => {
+          return teacherResources;
+        }
 
         // Mock Wix $w functionality
         const $w = {

@@ -11,13 +11,19 @@ import {
   AvailabilitySlot,
   ServiceType,
   AggregatedSlot,
+  TeacherResource,
 } from "../types";
 import { styles } from "./styles";
 import "../service-type-component";
+import "../popup/base";
+import "../popup/content-selector";
+import "../popup/group-class";
+import "../popup/appointment";
 
 @customElement("my-element")
 export class MyElement extends LitElement {
   private calendar?: Calendar;
+  private teacherResources: TeacherResource[] = [];
 
   @property({ type: Array })
   services: Service[] = [];
@@ -30,6 +36,9 @@ export class MyElement extends LitElement {
 
   @property({ type: String })
   selectedType: ServiceType = "CLASS";
+
+  @property({ type: Object })
+  selectedEvent: CalendarEvent | null = null;
 
   @property({ attribute: "services" })
   set servicesAttr(value: string) {
@@ -76,6 +85,9 @@ export class MyElement extends LitElement {
           (s) => s._id === slot.slot.serviceId
         );
         const { startDate, endDate } = slot.slot;
+        const teacherResource = this.getTeacherResourceById(
+          slot.slot.resource._id
+        );
 
         const teacherOptions = [
           {
@@ -89,6 +101,8 @@ export class MyElement extends LitElement {
                   (1000 * 60),
               },
             ],
+            name: teacherResource?.resource.name || slot.slot.resource.name,
+            hexColor: teacherResource?.resource.hexColor || "#808080",
           },
         ];
 
@@ -126,6 +140,9 @@ export class MyElement extends LitElement {
       const startTime = new Date(slot.slot.startDate);
       const slotKey = startTime.toISOString().slice(0, 14);
       const { startDate, endDate } = slot.slot;
+      const teacherResource = this.getTeacherResourceById(
+        slot.slot.resource._id
+      );
 
       const teacherService = {
         id: slot.slot.serviceId,
@@ -137,6 +154,8 @@ export class MyElement extends LitElement {
       const teacherOption = {
         id: slot.slot.resource._id,
         services: [teacherService],
+        name: teacherResource?.resource.name || slot.slot.resource.name,
+        hexColor: teacherResource?.resource.hexColor || "#808080",
       };
 
       if (!aggregatedSlots.has(slotKey)) {
@@ -190,14 +209,7 @@ export class MyElement extends LitElement {
       ...info.event.toPlainObject(),
       extendedProps: info.event.extendedProps,
     };
-
-    this.dispatchEvent(
-      new CustomEvent("eventClick", {
-        detail: JSON.stringify(eventDetails),
-        bubbles: true,
-        composed: true,
-      })
-    );
+    this.selectedEvent = eventDetails;
   }
 
   private handleDatesSet(info: any) {
@@ -207,6 +219,16 @@ export class MyElement extends LitElement {
           start: info.start.toISOString(),
           end: info.end.toISOString(),
         }),
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
+  private handleBooking(e: CustomEvent) {
+    this.dispatchEvent(
+      new CustomEvent("getPlans", {
+        detail: JSON.stringify(e.detail),
         bubbles: true,
         composed: true,
       })
@@ -242,6 +264,14 @@ export class MyElement extends LitElement {
     this.updateCalendarEvents();
   }
 
+  public setTeacherResources(resources: TeacherResource[]) {
+    this.teacherResources = resources;
+  }
+
+  public getTeacherResourceById(id: string): TeacherResource | undefined {
+    return this.teacherResources.find((tr) => tr.resource._id === id);
+  }
+
   render() {
     return html`
       <div class="calendar-wrapper">
@@ -251,6 +281,11 @@ export class MyElement extends LitElement {
           @type-change=${this.handleTypeChange}
         ></service-type-selector>
         <div class="calendar-container"></div>
+        <event-popup
+          .event=${this.selectedEvent}
+          @close=${() => (this.selectedEvent = null)}
+          @book=${this.handleBooking}
+        ></event-popup>
       </div>
     `;
   }

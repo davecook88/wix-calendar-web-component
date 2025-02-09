@@ -19,11 +19,11 @@ import "../popup/base";
 import "../popup/content-selector";
 import "../popup/group-class";
 import "../popup/appointment";
+import { convertWixImageUrl } from "../utils";
 
 @customElement("my-element")
 export class MyElement extends LitElement {
   private calendar?: Calendar;
-  private teacherResources: TeacherResource[] = [];
 
   @property({ type: Array })
   services: Service[] = [];
@@ -85,8 +85,8 @@ export class MyElement extends LitElement {
           (s) => s._id === slot.slot.serviceId
         );
         const { startDate, endDate } = slot.slot;
-        const teacherResource = this.getTeacherResourceById(
-          slot.slot.resource._id
+        const teacher = this.teachers.find(
+          (t) => t._id === slot.slot.resource._id
         );
 
         const teacherOptions = [
@@ -101,8 +101,9 @@ export class MyElement extends LitElement {
                   (1000 * 60),
               },
             ],
-            name: teacherResource?.resource.name || slot.slot.resource.name,
-            hexColor: teacherResource?.resource.hexColor || "#808080",
+            name: teacher?.name || slot.slot.resource.name,
+            imageUrl: convertWixImageUrl(teacher?.image),
+            hexColor: "#808080",
           },
         ];
 
@@ -117,7 +118,7 @@ export class MyElement extends LitElement {
           extendedProps: {
             isAggregated: false,
             serviceType: service?.type,
-            teacherName: slot.slot.resource.name,
+            teacherName: teacher?.name || slot.slot.resource.name,
             bookable: slot.bookable,
             openSpots: slot.openSpots,
             totalSpots: slot.totalSpots,
@@ -140,8 +141,8 @@ export class MyElement extends LitElement {
       const startTime = new Date(slot.slot.startDate);
       const slotKey = startTime.toISOString().slice(0, 14);
       const { startDate, endDate } = slot.slot;
-      const teacherResource = this.getTeacherResourceById(
-        slot.slot.resource._id
+      const teacher = this.teachers.find(
+        (t) => t._id === slot.slot.resource._id
       );
 
       const teacherService = {
@@ -154,8 +155,9 @@ export class MyElement extends LitElement {
       const teacherOption = {
         id: slot.slot.resource._id,
         services: [teacherService],
-        name: teacherResource?.resource.name || slot.slot.resource.name,
-        hexColor: teacherResource?.resource.hexColor || "#808080",
+        name: teacher?.name || slot.slot.resource.name,
+        imageUrl: convertWixImageUrl(teacher?.image),
+        hexColor: "#808080", // You might want to add hexColor to Staff type if needed
       };
 
       if (!aggregatedSlots.has(slotKey)) {
@@ -262,14 +264,6 @@ export class MyElement extends LitElement {
   private handleTypeChange(e: CustomEvent<ServiceType>) {
     this.selectedType = e.detail;
     this.updateCalendarEvents();
-  }
-
-  public setTeacherResources(resources: TeacherResource[]) {
-    this.teacherResources = resources;
-  }
-
-  public getTeacherResourceById(id: string): TeacherResource | undefined {
-    return this.teacherResources.find((tr) => tr.resource._id === id);
   }
 
   render() {

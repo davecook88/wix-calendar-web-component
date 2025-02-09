@@ -225,18 +225,24 @@ export class AppointmentContent extends LitElement {
   private renderTeacherCard(teacher: TeacherOption) {
     if (!this.event) return html``;
     const bookable = this.event.extendedProps.bookable;
-    console.log("bookable", teacher);
+    console.log("teacher", teacher);
 
     return html`
       <div class="teacher-card ${bookable ? "bookable" : "not-bookable"}">
         <div class="teacher-info">
           <div class="teacher-image-name-wrapper">
-            <div
-              class="teacher-image"
-              style="background-color: ${teacher.hexColor}; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;"
-            >
-              ${teacher.name.charAt(0)}
-            </div>
+            ${teacher.imageUrl
+              ? html`<img
+                  class="teacher-image"
+                  src="${teacher.imageUrl}"
+                  alt="${teacher.name}"
+                />`
+              : html`<div
+                  class="teacher-image"
+                  style="background-color: ${teacher.hexColor}; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;"
+                >
+                  ${teacher.name.charAt(0)}
+                </div>`}
             <h4 class="teacher-name">${teacher.name}</h4>
           </div>
 

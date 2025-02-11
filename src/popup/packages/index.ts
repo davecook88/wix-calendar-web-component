@@ -11,8 +11,8 @@ export class PackagesContent extends LitElement {
   @property({ type: Object })
   service: Service | null = null;
 
-  @state()
-  private pricingPlans: Record<string, PricingPlan> = {};
+  @property({ type: Array })
+  plans: PricingPlan[] = [];
 
   static styles = styles;
 
@@ -25,30 +25,19 @@ export class PackagesContent extends LitElement {
     if (!this.service?.payment.pricingPlanIds) return;
 
     const missingPlanIds = this.service.payment.pricingPlanIds.filter(
-      (id: string) => !this.pricingPlans[id]
+      (id: string) => !this.plans.find((plan) => plan._id === id)
     );
 
     if (missingPlanIds.length > 0) {
+      console.log("requesting plans", missingPlanIds);
       this.dispatchEvent(
-        new CustomEvent("request-plans", {
+        new CustomEvent("get-plans", {
           detail: { planIds: missingPlanIds },
           bubbles: true,
           composed: true,
         })
       );
     }
-  }
-
-  @property({ type: Array })
-  set plans(newPlans: any[]) {
-    // Merge new plans into existing plans
-    newPlans.forEach((plan) => {
-      this.pricingPlans = {
-        ...this.pricingPlans,
-        [plan.id]: plan,
-      };
-    });
-    this.requestUpdate();
   }
 
   private handlePackageSelect(packageDetails: any) {
@@ -63,11 +52,11 @@ export class PackagesContent extends LitElement {
   }
 
   render() {
-    console.log("PackagesContent", this.service, this.pricingPlans);
+    console.log("PackagesContent", this.service, this.plans);
     const availablePlans =
-      this.service?.payment.pricingPlanIds
-        ?.map((id) => this.pricingPlans[id])
-        .filter(Boolean) || [];
+      this.plans?.filter((plan) =>
+        this.service?.payment.pricingPlanIds.includes(plan._id)
+      ) || [];
 
     return html`
       <div class="packages-container">
@@ -83,11 +72,22 @@ export class PackagesContent extends LitElement {
                 @click=${() => this.handlePackageSelect(plan)}
               >
                 <div class="package-title">${plan.name}</div>
-                <div class="package-price">$${plan.pricing.price}</div>
+                <div class="package-price">
+                  ${plan.pricing.price.currency} $${plan.pricing.price.value}
+                </div>
                 ${plan.description
                   ? html`<div class="package-description">
                       ${plan.description}
                     </div>`
+                  : ""}
+                ${plan.perks?.length
+                  ? html`
+                      <ul class="perks-list">
+                        ${plan.perks.map(
+                          (perk) => html` <li class="perk-item">${perk}</li> `
+                        )}
+                      </ul>
+                    `
                   : ""}
               </div>
             `

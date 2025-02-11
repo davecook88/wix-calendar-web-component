@@ -47,5 +47,30 @@ export const styles = css`
   .package-price {
     font-weight: bold;
     color: #ff5722;
+    margin-bottom: 15px;
+  }
+
+  .package-description {
+    margin-bottom: 12px;
+    color: #666;
+  }
+
+  .perks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .perk-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    color: #444;
+  }
+
+  .perk-item::before {
+    content: "•";
+    color: #ff5722;
+    margin-right: 8px;
   }
 `;

@@ -228,7 +228,7 @@ export interface PricingPlan {
   name: string;
   description: string;
   pricing: PricingDetails;
-  perks: PricingPerks;
+  perks: string[];
 }
 
 // Utility Types

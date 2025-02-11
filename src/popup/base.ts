@@ -7,6 +7,9 @@ export class EventPopup extends LitElement {
   @property({ type: Object })
   event: CalendarEvent | null = null;
 
+  @property({ type: Array })
+  plans: any[] = [];
+
   static styles = css`
     .event-popup {
       display: none;
@@ -87,7 +90,12 @@ export class EventPopup extends LitElement {
 
   private handleClose() {
     this.event = null;
-    this.dispatchEvent(new CustomEvent("close"));
+    this.dispatchEvent(
+      new CustomEvent("close", {
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   private handleBackdropClick(e: MouseEvent) {
@@ -97,6 +105,7 @@ export class EventPopup extends LitElement {
   }
 
   private handleBook(e: CustomEvent) {
+    console.log("event-popup handleBook", e.detail);
     this.dispatchEvent(
       new CustomEvent("book", {
         detail: e.detail,
@@ -105,6 +114,8 @@ export class EventPopup extends LitElement {
       })
     );
   }
+
+  private handleViewPackagesSelected(e: CustomEvent) {}
 
   render() {
     const active = !!this.event;
@@ -121,7 +132,9 @@ export class EventPopup extends LitElement {
               ? html`
                   <popup-content-selector
                     .event=${this.event}
+                    .plans=${this.plans}
                     @book=${this.handleBook}
+                    @view-packages-selected=${this.handleViewPackagesSelected}
                   ></popup-content-selector>
                 `
               : ""}

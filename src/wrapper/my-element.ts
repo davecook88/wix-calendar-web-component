@@ -11,7 +11,6 @@ import {
   AvailabilitySlot,
   ServiceType,
   AggregatedSlot,
-  TeacherResource,
   PricingPlan,
 } from "../types";
 import { styles } from "./styles";
@@ -97,7 +96,7 @@ export class MyElement extends LitElement {
         const service = this.services.find(
           (s) => s._id === slot.slot.serviceId
         );
-        console.log("service", service, slot.slot.serviceId);
+
         const { startDate, endDate } = slot.slot;
         const teacher = this.teachers.find(
           (t) => t._id === slot.slot.resource._id
@@ -243,9 +242,23 @@ export class MyElement extends LitElement {
   }
 
   private handleBooking(e: CustomEvent) {
+    console.log("my-element handleBooking", e.detail);
     this.dispatchEvent(
       new CustomEvent("getPlans", {
         detail: JSON.stringify(e.detail),
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
+  private handleViewPackagesSelected(e: CustomEvent) {
+    console.log("my-element handleViewPackagesSelected", e.detail);
+    const detail = JSON.parse(e.detail) as Service;
+
+    this.dispatchEvent(
+      new CustomEvent("get-plans", {
+        detail: JSON.stringify(detail.payment.pricingPlanIds),
         bubbles: true,
         composed: true,
       })
@@ -292,8 +305,10 @@ export class MyElement extends LitElement {
         <div class="calendar-container"></div>
         <event-popup
           .event=${this.selectedEvent}
+          .plans=${this.plans}
           @close=${() => (this.selectedEvent = null)}
           @book=${this.handleBooking}
+          @view-packages-selected=${this.handleViewPackagesSelected}
         ></event-popup>
       </div>
     `;

@@ -1,6 +1,12 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
-import { CalendarEvent, TeacherOption, TeacherResource } from "../types";
+import {
+  CalendarEvent,
+  TeacherOption,
+  TeacherResource,
+  PricingPlan,
+  Service,
+} from "../types";
 
 export type PopupContentView = "group-class" | "appointment" | "package";
 
@@ -28,6 +34,9 @@ export class PopupContentSelector extends LitElement {
   @property({ type: Object })
   event: CalendarEvent | null = null;
 
+  @property({ type: Array })
+  plans: PricingPlan[] = [];
+
   @state()
   private viewHistory: PopupContentView[] = [];
 
@@ -36,6 +45,9 @@ export class PopupContentSelector extends LitElement {
 
   @state()
   private selectedTeacher: TeacherOption | null = null;
+
+  @state()
+  private selectedService: Service | null = null;
 
   updated(changedProperties: Map<string, any>) {
     if (changedProperties.has("event")) {
@@ -66,10 +78,26 @@ export class PopupContentSelector extends LitElement {
     const teacher = this.event?.extendedProps?.teacherOptions.find(
       (t) => t.id === teacherId
     );
-    // Store both the booking details and selected teacher
+    // Store the service along with booking details
     this.selectedBooking = e.detail.booking;
     this.selectedTeacher = teacher ?? null;
-    // Push the package view
+    this.selectedService =
+      e.detail.service || this.event?.extendedProps?.service;
+
+    console.log("Selected service:", this.selectedService);
+    this.pushView("package");
+  }
+
+  private handleViewPackagesSelected(e: CustomEvent) {
+    console.log("content-selector handleViewPackagesSelected", e.detail);
+    const teacherId = e.detail.teacherId;
+    const teacher = this.event?.extendedProps?.teacherOptions.find(
+      (t) => t.id === teacherId
+    );
+    this.selectedTeacher = teacher ?? null;
+    this.selectedService =
+      e.detail.service || this.event?.extendedProps?.service;
+    console.log("Selected service from packages:", this.selectedService);
     this.pushView("package");
   }
 
@@ -93,9 +121,8 @@ export class PopupContentSelector extends LitElement {
           return html`
             <packages-content
               .selectedBooking=${this.selectedBooking}
-              .service=${this.event?.extendedProps?.service ||
-              (this.selectedTeacher?.services &&
-                this.selectedTeacher.services[0]?.service)}
+              .service=${this.selectedService}
+              .plans=${this.plans}
               @back=${() => this.popView()}
               @package-selected=${(e: CustomEvent) =>
                 this.dispatchEvent(
@@ -111,6 +138,7 @@ export class PopupContentSelector extends LitElement {
           return html`
             <appointment-content
               .event=${this.event}
+              @view-packages-selected=${this.handleViewPackagesSelected}
               @booking-selected=${this.handleBookingSelected}
             ></appointment-content>
           `;

@@ -159,7 +159,6 @@ export class AppointmentContent extends LitElement {
     serviceId: string,
     duration: number
   ) {
-    console.log("handleBooking", teacher, serviceId, duration);
     this.dispatchEvent(
       new CustomEvent("booking-selected", {
         detail: {

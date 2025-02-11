@@ -131,6 +131,7 @@ export interface Staff {
 export interface TeacherService {
   id: string;
   durationMinutes: number;
+  service?: Service;
 }
 
 export interface TeacherOption {

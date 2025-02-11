@@ -12,6 +12,7 @@ import {
   ServiceType,
   AggregatedSlot,
   TeacherResource,
+  PricingPlan,
 } from "../types";
 import { styles } from "./styles";
 import "../service-type-component";
@@ -33,6 +34,9 @@ export class MyElement extends LitElement {
 
   @property({ type: Array })
   availability: AvailabilitySlot[] = [];
+
+  @property({ type: Array })
+  plans: PricingPlan[] = [];
 
   @property({ type: String })
   selectedType: ServiceType = "CLASS";
@@ -70,6 +74,15 @@ export class MyElement extends LitElement {
     }
   }
 
+  @property({ attribute: "plans" })
+  set plansAttr(value: string) {
+    try {
+      this.plans = JSON.parse(value);
+    } catch (e) {
+      console.error("Error parsing plans:", e);
+    }
+  }
+
   static styles = styles;
 
   private formatRegularEvents(): CalendarEvent[] {
@@ -84,6 +97,7 @@ export class MyElement extends LitElement {
         const service = this.services.find(
           (s) => s._id === slot.slot.serviceId
         );
+        console.log("service", service, slot.slot.serviceId);
         const { startDate, endDate } = slot.slot;
         const teacher = this.teachers.find(
           (t) => t._id === slot.slot.resource._id
@@ -150,6 +164,7 @@ export class MyElement extends LitElement {
         durationMinutes:
           (new Date(endDate).getTime() - new Date(startDate).getTime()) /
           (1000 * 60),
+        service: this.services.find((s) => s._id === slot.slot.serviceId),
       };
 
       const teacherOption = {

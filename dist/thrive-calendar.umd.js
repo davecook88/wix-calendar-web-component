@@ -115,6 +115,7 @@
 
   .calendar-event {
     cursor: pointer;
+    font-size: 14px !important;
   }
 `;var Hh=Object.defineProperty,Bh=Object.getOwnPropertyDescriptor,Uo=(n,e,t,r)=>{for(var i=r>1?void 0:r?Bh(e,t):e,s=n.length-1,o;s>=0;s--)(o=n[s])&&(i=(r?o(e,t,i):o(i))||i);return r&&i&&Hh(e,t,i),i};let Kt=class extends G{constructor(){super(...arguments),this.selectedType="CLASS"}handleTypeChange(n){this.selectedType=n,this.dispatchEvent(new CustomEvent("type-change",{detail:n,bubbles:!0,composed:!0}))}render(){return _`
       <div class="type-selector">

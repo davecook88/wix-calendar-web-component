@@ -87,5 +87,6 @@ export const styles = css`
 
   .calendar-event {
     cursor: pointer;
+    font-size: 14px !important;
   }
 `;

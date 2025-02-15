@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -48,7 +48,6 @@ export class CalendarComponent extends LitElement {
   }
 
   updated(changedProperties: Map<string, any>) {
-    console.log("calendar el", changedProperties);
     if (changedProperties.has("events") && this.calendar) {
       this.calendar.removeAllEvents();
       this.calendar.addEventSource(this.events);
@@ -66,6 +65,7 @@ export class CalendarComponent extends LitElement {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         },
+
         slotMinTime: "06:00:00",
         nowIndicator: true,
         allDaySlot: false,
@@ -74,6 +74,10 @@ export class CalendarComponent extends LitElement {
         eventClick: this.handleEventClick.bind(this),
         datesSet: this.handleDatesSet.bind(this),
         eventClassNames: ["calendar-event"],
+        eventDidMount: (info) => {
+          // This will set the font size for each event as it's mounted
+          console.log("Event mounted", info.el);
+        },
       });
 
       this.calendar.render();
@@ -81,7 +85,9 @@ export class CalendarComponent extends LitElement {
   }
 
   render() {
-    return html` <div class="calendar-container"></div> `;
+    return html`
+      <div class="calendar-container" style="font-size:14px"></div>
+    `;
   }
 
   disconnectedCallback() {

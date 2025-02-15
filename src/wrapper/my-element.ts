@@ -128,6 +128,7 @@ export class MyElement extends LitElement {
           backgroundColor: slot.bookable ? "#FF5722" : "#F5F5F5",
           borderColor: slot.bookable ? "#F4511E" : "#E0E0E0",
           textColor: slot.bookable ? "#FFFFFF" : "#333333",
+
           classNames: ["calendar-event"],
           extendedProps: {
             sessionId: slot.slot.sessionId,

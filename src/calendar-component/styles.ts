@@ -4,6 +4,12 @@ export const styles = css`
   :host {
     display: block;
     font-family: system-ui, -apple-system, sans-serif;
+    height: 100%;
+    --fc-small-font-size: 14px !important;
+  }
+
+  a {
+    font-size: 14px !important;
   }
 
   .calendar-container {
@@ -13,6 +19,8 @@ export const styles = css`
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
+    height: 100%;
+    width: 100%;
   }
 
   .fc .fc-toolbar-title {
@@ -29,11 +37,20 @@ export const styles = css`
     font-weight: 500 !important;
     padding: 0.5rem 1rem !important;
     border-radius: 2rem !important;
+    font-size: 14px !important;
+  }
+
+  .fc-timegrid-event,
+  .fc-timegrid-more-link,
+  .fc-timegrid-event .fc-event-time,
+  .fc-v-event .fc-event-title-container {
+    font-size: 14px !important;
   }
 
   .fc .fc-button-primary:hover {
     background-color: #f4511e !important;
     border-color: #e64a19 !important;
+    font-size: 14px !important;
   }
 
   .fc .fc-button-primary:disabled {
@@ -57,7 +74,7 @@ export const styles = css`
   }
 
   .fc .fc-timegrid-slot-label {
-    font-size: 0.875rem !important;
+    font-size: 14px !important;
     color: #666666 !important;
   }
 
@@ -71,6 +88,6 @@ export const styles = css`
 
   .calendar-event {
     cursor: pointer;
-    font-size: 14px;
+    font-size: 14px !important;
   }
 `;

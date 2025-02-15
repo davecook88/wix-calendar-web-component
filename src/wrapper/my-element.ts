@@ -38,7 +38,7 @@ export class MyElement extends LitElement {
   plans: PricingPlan[] = [];
 
   @property({ type: String })
-  selectedType: ServiceType = "CLASS";
+  selectedType: ServiceType = "APPOINTMENT";
 
   @property({ type: Object })
   selectedEvent: CalendarEvent | null = null;
@@ -129,6 +129,7 @@ export class MyElement extends LitElement {
           textColor: slot.bookable ? "#FFFFFF" : "#333333",
           classNames: ["calendar-event"],
           extendedProps: {
+            sessionId: slot.slot.sessionId,
             isAggregated: false,
             serviceType: service?.type,
             teacherName: teacher?.name || slot.slot.resource.name,

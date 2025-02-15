@@ -173,6 +173,7 @@ export interface Slot {
   serviceId: string;
   resource: Resource;
   nestedSlots: Slot[];
+  sessionId?: string;
 }
 
 export interface AvailabilitySlot {
@@ -192,6 +193,7 @@ export interface CalendarEventExtendedProps {
   totalSpots?: number;
   teacherOptions: TeacherOption[];
   service?: Service;
+  sessionId?: string;
 }
 
 export interface CalendarEvent {

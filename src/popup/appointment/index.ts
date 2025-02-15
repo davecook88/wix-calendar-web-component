@@ -10,26 +10,6 @@ export class AppointmentContent extends LitElement {
 
   static styles = styles;
 
-  private handleBooking(
-    teacher: TeacherOption,
-    serviceId: string,
-    duration: number
-  ) {
-    this.dispatchEvent(
-      new CustomEvent("booking-selected", {
-        detail: {
-          teacherId: teacher.id,
-          serviceId,
-          startTime: this.event?.start,
-          endTime: this.event?.end,
-          duration,
-        },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
-
   private createBookingUrl(
     teacher: TeacherOption,
     serviceId: string,
@@ -53,21 +33,6 @@ export class AppointmentContent extends LitElement {
       numberOfParticipants: "1",
     });
     return `${base}?${params.toString()}`;
-  }
-
-  private handleViewPackages(teacher: TeacherOption, service: Service) {
-    this.dispatchEvent(
-      new CustomEvent("view-packages-selected", {
-        detail: {
-          teacherId: teacher.id,
-          service: service,
-        },
-        bubbles: true,
-        composed: true,
-      })
-    );
-
-    this.handleBookingSelected(teacher, null, service);
   }
 
   private handleBookingSelected(
@@ -148,7 +113,6 @@ export class AppointmentContent extends LitElement {
   }
 
   private handleSelectViewPackages(teacherId: string, serviceId: string) {
-    console.log("appointment - handleSelectViewPackages", teacherId);
     const teacher = this.event?.extendedProps.teacherOptions.find(
       (t) => t.id === teacherId
     );

@@ -105,10 +105,6 @@ export class PopupContentSelector extends LitElement {
     this.popView();
   }
 
-  private setSelectedTeacher(teacher: TeacherOption) {
-    this.selectedTeacher = teacher;
-  }
-
   render() {
     if (!this.event) return html``;
 
@@ -124,14 +120,6 @@ export class PopupContentSelector extends LitElement {
               .service=${this.selectedService}
               .plans=${this.plans}
               @back=${() => this.popView()}
-              @package-selected=${(e: CustomEvent) =>
-                this.dispatchEvent(
-                  new CustomEvent("book", {
-                    detail: e.detail,
-                    bubbles: true,
-                    composed: true,
-                  })
-                )}
             ></packages-content>
           `;
         case "appointment":

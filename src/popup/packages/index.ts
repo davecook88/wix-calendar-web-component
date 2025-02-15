@@ -47,6 +47,8 @@ export class PackagesContent extends LitElement {
           ...this.selectedBooking,
           package: packageDetails,
         },
+        bubbles: true,
+        composed: true,
       })
     );
   }

@@ -37,6 +37,29 @@
             }
         };
 
+        const onPackageSelected = (e) => {
+
+
+            // import { customPurchaseFlow } from 'wix-pricing-plans-frontend';
+
+            // /* Example pricingPageOpts object:
+            // {
+            //   planIds: ['planId1', 'planId2'],
+            //   checkout: {
+            //     thankYouPage: {
+            //       content: 'Thank you for your purchase!',
+            //     },
+            //   },
+            // }*/
+
+            // $w.onReady(() => {
+            //   $w('#button').onClick(() => {
+            //     customPurchaseFlow.navigateToPricingPage(pricingPageOpts);
+            //   });
+            // });
+          console.log("onPackageSelected",e)
+        }
+
         // Initialize calendar when page loads
         window.addEventListener('load', async function() {
             const calendar = document.querySelector('my-element');
@@ -156,6 +179,7 @@
             calendar.addEventListener("dateset", onCalendarDateSet);
             calendar.addEventListener("get-plans", onGetPlans);
             calendar.addEventListener("view-packages-selected",onGetPlans)
+            calendar.addEventListener("package-selected",onPackageSelected)
 
             // Initialize
             refreshCalendarData();

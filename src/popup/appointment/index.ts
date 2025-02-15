@@ -40,15 +40,17 @@ export class AppointmentContent extends LitElement {
     const startDate = new Date(this.event.start);
     const endDate = new Date(startDate.getTime() + duration * 60 * 1000);
 
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
     const base = "https://www.thriveinspanish.com/booking-form";
+
     const params = new URLSearchParams({
-      bookings_serviceId: serviceId,
-      bookings_resourceId: teacher.id,
+      bookings_serviceId: teacher.id,
+      bookings_resourceId: serviceId, // Changed from .id to ._id
       bookings_startDate: startDate.toISOString(),
       bookings_endDate: endDate.toISOString(),
-      bookings_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      bookings_timezone: timezone,
     });
-
     return `${base}?${params.toString()}`;
   }
 

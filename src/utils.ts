@@ -18,13 +18,24 @@ export function createFixedPriceBookingUrl(options: {
 }) {
   const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const base = "https://www.thriveinspanish.com/booking-form";
+
+  // Create the continue shopping URL
+  const continueShoppingUrl = encodeURIComponent(
+    "/booking-calendar/one-to-one-structured-class-2"
+  );
+
   const params = new URLSearchParams({
-    bookings_serviceId: options.serviceId,
-    bookings_resourceId: options.resourceId,
-    bookings_startDate: options.startDate,
-    bookings_endDate: options.endDate,
-    bookings_timezone: localTimezone,
+    referral: "booking_calendar_widget",
+    continueShoppingUrl: `${continueShoppingUrl}?timezone=${encodeURIComponent(
+      localTimezone
+    )}`,
+    serviceId: options.serviceId,
+    resourceId: options.resourceId,
+    startDate: options.startDate,
+    endDate: options.endDate,
+    timezone: localTimezone,
   });
+
   const url = `${base}?${params.toString()}`;
   console.log("createFixedPriceBookingUrl", url);
   return url;

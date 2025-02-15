@@ -45,11 +45,12 @@ export class AppointmentContent extends LitElement {
     const base = "https://www.thriveinspanish.com/booking-form";
 
     const params = new URLSearchParams({
-      bookings_serviceId: teacher.id,
-      bookings_resourceId: serviceId, // Changed from .id to ._id
+      bookings_serviceId: serviceId,
+      bookings_resourceId: teacher.id,
       bookings_startDate: startDate.toISOString(),
       bookings_endDate: endDate.toISOString(),
       bookings_timezone: timezone,
+      numberOfParticipants: "1",
     });
     return `${base}?${params.toString()}`;
   }
@@ -194,7 +195,7 @@ export class AppointmentContent extends LitElement {
                     class="book-teacher"
                     href=${this.createBookingUrl(
                       teacher,
-                      service.id,
+                      service.service?._id as string,
                       service.durationMinutes
                     )}
                     target="_blank"

@@ -171,7 +171,8 @@ export class MyElement extends LitElement {
         services: [teacherService],
         name: teacher?.name || slot.slot.resource.name,
         imageUrl: convertWixImageUrl(teacher?.image),
-        hexColor: "#808080", // You might want to add hexColor to Staff type if needed
+        hexColor: "#808080",
+        startUtc: startTime.toISOString(),
       };
 
       if (!aggregatedSlots.has(slotKey)) {
@@ -183,29 +184,47 @@ export class MyElement extends LitElement {
       } else {
         const aggSlot = aggregatedSlots.get(slotKey);
         if (!aggSlot) return;
+
         const existingTeacher = aggSlot.teacherOptions.find(
           (t) => t.id === teacherOption.id
         );
+
         if (!existingTeacher) {
           aggSlot.teacherOptions.push(teacherOption);
+        } else {
+          // Check if this service duration doesn't already exist for this teacher
+          const hasServiceDuration = existingTeacher.services.some(
+            (s) => s.durationMinutes === teacherService.durationMinutes
+          );
+          if (!hasServiceDuration) {
+            existingTeacher.services.push(teacherService);
+          }
         }
       }
     });
 
-    return Array.from(aggregatedSlots.values()).map((slot) => ({
-      title: `Available Appointments (${slot.teacherOptions.length} teachers)`,
-      start: slot.start.toISOString(),
-      end: slot.end.toISOString(),
-      backgroundColor: "#FF5722",
-      borderColor: "#F4511E",
-      textColor: "#FFFFFF",
-      classNames: ["calendar-event"],
-      extendedProps: {
-        isAggregated: true,
-        teacherOptions: slot.teacherOptions,
-        bookable: true,
-      },
-    }));
+    return Array.from(aggregatedSlots.values()).map((slot) => {
+      // Count total available time slots
+      const totalSlots = slot.teacherOptions.reduce(
+        (sum, teacher) => sum + teacher.services.length,
+        0
+      );
+
+      return {
+        title: `Available Appointments (${totalSlots} slots)`,
+        start: slot.start.toISOString(),
+        end: slot.end.toISOString(),
+        backgroundColor: "#FF5722",
+        borderColor: "#F4511E",
+        textColor: "#FFFFFF",
+        classNames: ["calendar-event"],
+        extendedProps: {
+          isAggregated: true,
+          teacherOptions: slot.teacherOptions,
+          bookable: true,
+        },
+      };
+    });
   }
 
   private updateCalendarEvents() {
@@ -225,6 +244,8 @@ export class MyElement extends LitElement {
       ...info.event.toPlainObject(),
       extendedProps: info.event.extendedProps,
     };
+    console.log("my-element handleEventClick", info.event);
+
     this.selectedEvent = eventDetails;
   }
 

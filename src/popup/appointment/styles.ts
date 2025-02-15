@@ -54,8 +54,8 @@ export const styles = css`
   }
 
   .teacher-image {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border: 3px solid #ff5722;
     border-radius: 50%;

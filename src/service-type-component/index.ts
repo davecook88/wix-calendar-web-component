@@ -65,12 +65,12 @@ export class ServiceTypeSelector extends LitElement {
         >
           One-on-One
         </button>
-        <button
+        <!--<button
           class="type-button ${this.selectedType === "COURSE" ? "active" : ""}"
           @click=${() => this.handleTypeChange("COURSE")}
         >
           Course
-        </button>
+        </button> -->
       </div>
     `;
   }

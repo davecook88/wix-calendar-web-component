@@ -4,10 +4,18 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts",
-      formats: ["es"],
+      name: "ThriveCalendar", // This will be your global variable name in UMD
+      formats: ["umd"],
+      fileName: (format) => `thrive-calendar.${format}.js`,
     },
+    minify: true,
+    cssCodeSplit: false,
     rollupOptions: {
-      external: /^lit/,
+      output: {
+        globals: {
+          // No need to specify globals since we're bundling everything
+        },
+      },
     },
   },
 });

@@ -166,13 +166,13 @@ export class AppointmentContent extends LitElement {
                   >
                     Book ${service.durationMinutes}m
                   </a>
-                  <button
+                  <!-- <button
                     class="book-package"
                     @click=${() =>
-                      this.handleSelectViewPackages(teacher.id, service.id)}
+                    this.handleSelectViewPackages(teacher.id, service.id)}
                   >
                     Book a package and save
-                  </button>
+                  </button> -->
                 </div>
               </div>
             `;

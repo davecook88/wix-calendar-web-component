@@ -21,7 +21,7 @@ import "../popup/group-class";
 import "../popup/appointment";
 import { convertWixImageUrl } from "../utils";
 
-@customElement("my-element")
+@customElement("teaching-calendar")
 export class MyElement extends LitElement {
   private calendar?: Calendar;
 
@@ -101,6 +101,7 @@ export class MyElement extends LitElement {
         const teacher = this.teachers.find(
           (t) => t._id === slot.slot.resource._id
         );
+        console.log("found teacher", teacher);
 
         const teacherOptions = [
           {

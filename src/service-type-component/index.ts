@@ -35,6 +35,13 @@ export class ServiceTypeSelector extends LitElement {
     .type-button:hover:not(.active) {
       background: #eeeeee;
     }
+
+    @media (max-width: 768px) {
+      .type-selector {
+        flex-wrap: wrap;
+        justify-content: start;
+      }
+    }
   `;
 
   private handleTypeChange(type: ServiceType) {

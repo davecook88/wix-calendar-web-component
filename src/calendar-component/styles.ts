@@ -90,4 +90,17 @@ export const styles = css`
     cursor: pointer;
     font-size: 14px !important;
   }
+
+  @media (max-width: 768px) {
+    .calendar-event {
+      font-size: 0.85em !important;
+    }
+    .fc .fc-timegrid-slot {
+      font-size: 0.85em !important;
+    }
+
+    :host {
+      width: 200vw;
+    }
+  }
 `;

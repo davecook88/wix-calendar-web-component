@@ -14,7 +14,26 @@ export const styles = css`
   }
 
   .popup-content {
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .popup-content {
+      padding: 0.75rem;
+      padding-bottom: 3rem;
+    }
+
+    .service-title {
+      font-size: 1.25rem;
+    }
+
+    .service-tagline {
+      font-size: 1rem;
+    }
+
+    .service-image {
+      height: 150px;
+    }
   }
 
   .service-image {
@@ -57,8 +76,8 @@ export const styles = css`
 
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
   }
 
   .info-item {
@@ -77,9 +96,37 @@ export const styles = css`
 
   .cta-section {
     text-align: center;
-    padding: 1rem;
+    padding: 1.25rem;
     background: #f8f8f8;
     border-radius: 8px;
+    position: sticky;
+    bottom: 0;
+    margin: 0 -1.5rem -1.5rem -1.5rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 768px) {
+    .cta-section {
+      margin: 0 -1rem -1rem -1rem;
+      padding: 1rem;
+    }
+
+    .price-tag {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .spots-left {
+      font-size: 0.875rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .book-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      width: 100%;
+      max-width: none;
+    }
   }
 
   .price-tag {

@@ -20,6 +20,7 @@ import "../popup/content-selector";
 import "../popup/group-class";
 import "../popup/appointment";
 import { convertWixImageUrl } from "../utils";
+import "../teacher-filter";
 
 @customElement("teaching-calendar")
 export class MyElement extends LitElement {
@@ -42,6 +43,9 @@ export class MyElement extends LitElement {
 
   @property({ type: Object })
   selectedEvent: CalendarEvent | null = null;
+
+  @property({ type: String })
+  selectedTeacherId: string | null = null;
 
   @property({ attribute: "services" })
   set servicesAttr(value: string) {
@@ -90,7 +94,13 @@ export class MyElement extends LitElement {
         const service = this.services.find(
           (s) => s._id === slot.slot.serviceId
         );
-        return service && service.type === this.selectedType && !service.hidden;
+        return (
+          service &&
+          service.type === this.selectedType &&
+          !service.hidden &&
+          (!this.selectedTeacherId ||
+            slot.slot.resource._id === this.selectedTeacherId)
+        );
       })
       .map((slot) => {
         const service = this.services.find(
@@ -148,7 +158,13 @@ export class MyElement extends LitElement {
   private formatAggregatedAppointments(): CalendarEvent[] {
     const appointmentSlots = this.availability.filter((slot) => {
       const service = this.services.find((s) => s._id === slot.slot.serviceId);
-      return service && service.type === "APPOINTMENT" && !service.hidden;
+      return (
+        service &&
+        service.type === "APPOINTMENT" &&
+        !service.hidden &&
+        (!this.selectedTeacherId ||
+          slot.slot.resource._id === this.selectedTeacherId)
+      );
     });
 
     const aggregatedSlots = new Map<string, AggregatedSlot>();
@@ -208,13 +224,14 @@ export class MyElement extends LitElement {
 
     return Array.from(aggregatedSlots.values()).map((slot) => {
       // Count total available time slots
-      const totalSlots = slot.teacherOptions.reduce(
-        (sum, teacher) => sum + teacher.services.length,
-        0
-      );
 
+      const uniqueTeacherIds = new Set<string>();
+      slot.teacherOptions.forEach((t) => uniqueTeacherIds.add(t.id));
+      const title = `${uniqueTeacherIds.size} teacher${
+        uniqueTeacherIds.size > 1 ? "s" : ""
+      }`;
       return {
-        title: `Available Appointments (${totalSlots} slots)`,
+        title,
         start: slot.start.toISOString(),
         end: slot.end.toISOString(),
         backgroundColor: "#FF5722",
@@ -307,6 +324,29 @@ export class MyElement extends LitElement {
         eventClick: this.handleEventClick.bind(this),
         datesSet: this.handleDatesSet.bind(this),
         eventClassNames: ["calendar-event"],
+        contentHeight: "auto",
+        handleWindowResize: true,
+        expandRows: true,
+        stickyHeaderDates: true,
+        views: {
+          timeGridWeek: {
+            titleFormat: { year: "numeric", month: "short", day: "numeric" },
+          },
+          timeGridDay: {
+            titleFormat: { year: "numeric", month: "long", day: "numeric" },
+          },
+        },
+      });
+
+      // Add window resize handler
+      window.addEventListener("resize", () => {
+        const isMobile = window.innerWidth < 768;
+        const currentView = this.calendar?.view.type;
+
+        // Switch to day view on mobile if currently in week view
+        if (isMobile && currentView === "timeGridWeek") {
+          this.calendar?.changeView("timeGridDay");
+        }
       });
 
       this.calendar.render();
@@ -318,14 +358,25 @@ export class MyElement extends LitElement {
     this.updateCalendarEvents();
   }
 
+  private handleTeacherChange(e: CustomEvent<string>) {
+    this.selectedTeacherId = e.detail;
+    this.updateCalendarEvents();
+  }
+
   render() {
     return html`
       <div class="calendar-wrapper">
-        <h1>Thrive Calendar</h1>
         <service-type-selector
           .selectedType=${this.selectedType}
           @type-change=${this.handleTypeChange}
         ></service-type-selector>
+        <teacher-filter
+          .teachers=${this.teachers.filter((t) => {
+            return t.image !== "null" && t.image;
+          })}
+          .selectedTeacherId=${this.selectedTeacherId}
+          @teacher-change=${this.handleTeacherChange}
+        ></teacher-filter>
         <div class="calendar-container"></div>
         <event-popup
           .event=${this.selectedEvent}
@@ -340,6 +391,7 @@ export class MyElement extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    window.removeEventListener("resize", () => {});
     this.calendar?.destroy();
   }
 }

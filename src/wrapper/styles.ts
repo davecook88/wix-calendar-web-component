@@ -13,6 +13,9 @@ export const styles = css`
   .calendar-wrapper {
     max-width: 1200px;
     margin: 0 auto;
+    max-height: 85vh;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   .calendar-container {
@@ -20,6 +23,17 @@ export const styles = css`
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .calendar-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .calendar-wrapper {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   h1 {
@@ -88,5 +102,70 @@ export const styles = css`
   .calendar-event {
     cursor: pointer;
     font-size: 14px !important;
+  }
+
+  @media (max-width: 768px) {
+    :host {
+      padding: 1rem;
+    }
+
+    .calendar-wrapper {
+      padding-bottom: 1rem;
+      max-height: 85vh;
+    }
+
+    .calendar-event {
+      cursor: pointer;
+      font-size: 0.85rem !important;
+    }
+
+    .calendar-container {
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .fc .fc-toolbar-title {
+      font-size: 1rem !important;
+    }
+
+    .fc .fc-toolbar {
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+
+    .fc .fc-toolbar-chunk {
+      display: flex;
+      justify-content: center;
+    }
+
+    .fc .fc-button {
+      padding: 0.25rem 0.75rem !important;
+      font-size: 0.875rem !important;
+    }
+
+    .fc .fc-view-harness {
+      min-height: 400px;
+    }
+
+    .fc .fc-timegrid-slot {
+      height: 2.5rem !important;
+      min-width: 100px; /* Ensures cells don't get too narrow */
+    }
+
+    .fc .fc-scroller {
+      overflow: visible !important; /* Changed from hidden to visible */
+    }
+
+    @media (max-width: 720px) {
+      :host {
+        width: 200vw;
+      }
+    }
   }
 `;

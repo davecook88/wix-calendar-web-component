@@ -47,19 +47,69 @@ export class CalendarComponent extends LitElement {
     );
   }
 
+  private _calculateInitialDate(events: CalendarEvent[]): string | undefined {
+    console.log("Calculating initial date for events:", events);
+    if (events.length === 0) {
+      return undefined;
+    }
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+    const eventsThisWeek = events.filter((event) => {
+      const eventDate = new Date(event.start);
+      return eventDate >= startOfWeek && eventDate < endOfWeek;
+    });
+
+    if (eventsThisWeek.length > 0) {
+      return undefined; // Default behavior, show current week
+    }
+
+    const futureEvents = events
+      .filter((event) => new Date(event.start) > new Date())
+      .sort(
+        (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()
+      );
+
+    if (futureEvents.length > 0) {
+      return futureEvents[0].start;
+    }
+
+    return undefined;
+  }
+
   updated(changedProperties: Map<string, any>) {
     if (changedProperties.has("events") && this.calendar) {
+      console.log("Updating calendar with new events:", this.events);
       this.calendar.removeAllEvents();
       this.calendar.addEventSource(this.events);
+      const newDate = this._calculateInitialDate(this.events);
+      if (newDate) {
+        this.calendar.gotoDate(newDate);
+      }
     }
   }
 
   firstUpdated() {
+    const initialDate = this._calculateInitialDate(this.events);
+
     const calendarEl = this.shadowRoot?.querySelector(".calendar-container");
+
     if (calendarEl) {
+      console.log(
+        "Initializing calendar with element:",
+        calendarEl,
+        initialDate
+      );
       this.calendar = new Calendar(calendarEl as HTMLElement, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: "timeGridWeek",
+        initialDate: initialDate,
         headerToolbar: {
           left: "prev,next today",
           center: "title",
@@ -76,7 +126,6 @@ export class CalendarComponent extends LitElement {
         eventClassNames: ["calendar-event"],
         eventDidMount: (info) => {
           // This will set the font size for each event as it's mounted
-          console.log("Event mounted", info.el);
         },
       });
 

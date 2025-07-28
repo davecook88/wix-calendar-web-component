@@ -41,6 +41,18 @@ export class MyElement extends LitElement {
   @property({ type: String })
   selectedType: ServiceType = "APPOINTMENT";
 
+  @property({ attribute: "default-type" })
+  set defaultTypeAttr(value: string) {
+    if (value) {
+      this.selectedType = value as ServiceType;
+      this._hideSelectors = true;
+    } else {
+      this._hideSelectors = false;
+    }
+  }
+
+  private _hideSelectors = false;
+
   @property({ type: Object })
   selectedEvent: CalendarEvent | null = null;
 
@@ -247,6 +259,43 @@ export class MyElement extends LitElement {
     });
   }
 
+  private _calculateInitialDate(): string | undefined {
+    if (this.availability.length === 0) {
+      return undefined;
+    }
+
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 7);
+
+    const slotsThisWeek = this.availability.filter((slot) => {
+      const eventDate = new Date(slot.slot.startDate);
+      return eventDate >= startOfWeek && eventDate < endOfWeek;
+    });
+
+    if (slotsThisWeek.length > 0) {
+      return undefined; // Default behavior, show current week
+    }
+
+    const futureSlots = this.availability
+      .filter((slot) => new Date(slot.slot.startDate) > new Date())
+      .sort(
+        (a, b) =>
+          new Date(a.slot.startDate).getTime() -
+          new Date(b.slot.startDate).getTime()
+      );
+
+    if (futureSlots.length > 0) {
+      return futureSlots[0].slot.startDate;
+    }
+
+    return undefined;
+  }
+
   private updateCalendarEvents() {
     if (!this.calendar || !this.services.length) return;
 
@@ -257,6 +306,11 @@ export class MyElement extends LitElement {
 
     this.calendar.removeAllEvents();
     this.calendar.addEventSource(events);
+
+    const newDate = this._calculateInitialDate();
+    if (newDate) {
+      this.calendar.gotoDate(newDate);
+    }
   }
 
   private handleEventClick(info: any) {
@@ -308,10 +362,13 @@ export class MyElement extends LitElement {
 
   firstUpdated() {
     const calendarEl = this.shadowRoot?.querySelector(".calendar-container");
+    const initialDate = this._calculateInitialDate();
+
     if (calendarEl) {
       this.calendar = new Calendar(calendarEl as HTMLElement, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: "timeGridWeek",
+        initialDate: initialDate,
         headerToolbar: {
           left: "prev,next today",
           center: "title",
@@ -366,17 +423,21 @@ export class MyElement extends LitElement {
   render() {
     return html`
       <div class="calendar-wrapper">
-        <service-type-selector
-          .selectedType=${this.selectedType}
-          @type-change=${this.handleTypeChange}
-        ></service-type-selector>
-        <teacher-filter
-          .teachers=${this.teachers.filter((t) => {
-            return t.image !== "null" && t.image;
-          })}
-          .selectedTeacherId=${this.selectedTeacherId}
-          @teacher-change=${this.handleTeacherChange}
-        ></teacher-filter>
+        ${!this._hideSelectors
+          ? html`
+              <service-type-selector
+                .selectedType=${this.selectedType}
+                @type-change=${this.handleTypeChange}
+              ></service-type-selector>
+              <teacher-filter
+                .teachers=${this.teachers.filter((t) => {
+                  return t.image !== "null" && t.image;
+                })}
+                .selectedTeacherId=${this.selectedTeacherId}
+                @teacher-change=${this.handleTeacherChange}
+              ></teacher-filter>
+            `
+          : ""}
         <div class="calendar-container"></div>
         <event-popup
           .event=${this.selectedEvent}

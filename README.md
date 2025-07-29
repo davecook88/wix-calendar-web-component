@@ -4,6 +4,8 @@ A modern, responsive, and user-friendly calendar component designed for the Thri
 
 ![Thrive Calendar Screenshot](https://github.com/davecook88/wix-calendar-web-component/blob/main/public/screenshot.png?raw=true)
 
+[See it live](https://www.thriveinspanish.com/)
+
 ## The Problem
 
 The Thrive in Spanish school uses Wix for its website and booking management. While Wix Booking is a powerful tool, its default views don't allow potential students to easily see all available class times and teacher schedules at a single glance. This makes it difficult for new users to quickly find a suitable time slot without clicking through multiple pages and filters.

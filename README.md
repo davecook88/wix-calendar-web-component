@@ -102,7 +102,7 @@ This will compile the TypeScript code and bundle the assets into the `dist` dire
 
 ## Usage
 
-As a web component, the Thrive Calendar can be embedded into any HTML page. After building the project, include the generated JavaScript module from the `dist` folder in your HTML file and then use the `<thrive-calendar></thrive-calendar>` custom element tag.
+As a web component, the Thrive Calendar can be embedded into any HTML page. However, bear in mind that this has been created specifically to be used with the Wix Booking V2 API and so the types are specific to this use case. After building the project, include the generated JavaScript module from the `dist` folder in your HTML file and then use the `<thrive-calendar></thrive-calendar>` custom element tag.
 
 ```html
 <!DOCTYPE html>

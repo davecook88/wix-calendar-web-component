@@ -41,6 +41,9 @@ export class MyElement extends LitElement {
   @property({ type: String })
   selectedType: ServiceType = "APPOINTMENT";
 
+  @property({ type: String })
+  _defaultCalendarView: string = "timeGridWeek";
+
   @property({ attribute: "default-type" })
   set defaultTypeAttr(value: string) {
     if (value) {
@@ -48,6 +51,13 @@ export class MyElement extends LitElement {
       this._hideSelectors = true;
     } else {
       this._hideSelectors = false;
+    }
+  }
+
+  @property({ attribute: "default-calendar-view" })
+  set defaultCalendarViewAttr(value: string) {
+    if (value) {
+      this._defaultCalendarView = value;
     }
   }
 
@@ -367,7 +377,7 @@ export class MyElement extends LitElement {
     if (calendarEl) {
       this.calendar = new Calendar(calendarEl as HTMLElement, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-        initialView: "timeGridWeek",
+        initialView: this._defaultCalendarView,
         initialDate: initialDate,
         headerToolbar: {
           left: "prev,next today",

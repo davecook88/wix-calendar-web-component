@@ -14,6 +14,9 @@ export class CalendarComponent extends LitElement {
   @property({ type: Array })
   events: CalendarEvent[] = [];
 
+  @property({ type: String })
+  initialView: string = "timeGridWeek";
+
   static styles = styles;
 
   private handleEventClick(info: any) {
@@ -108,7 +111,7 @@ export class CalendarComponent extends LitElement {
       );
       this.calendar = new Calendar(calendarEl as HTMLElement, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-        initialView: "timeGridWeek",
+        initialView: this.initialView,
         initialDate: initialDate,
         headerToolbar: {
           left: "prev,next today",

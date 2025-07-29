@@ -2,8 +2,7 @@
 
 A modern, responsive, and user-friendly calendar component designed for the Thrive in Spanish online language school. This widget provides a clear, aggregated view of teacher availability and course schedules, solving a key limitation of the standard Wix Booking system.
 
-![Thrive Calendar Screenshot](httpss://via.placeholder.com/800x400.png?text=Your+Screenshot+Here)
-*^ Please replace this with a screenshot or GIF of your project!*
+![Thrive Calendar Screenshot](https://github.com/davecook88/wix-calendar-web-component/blob/main/public/screenshot.png?raw=true)
 
 ## The Problem
 

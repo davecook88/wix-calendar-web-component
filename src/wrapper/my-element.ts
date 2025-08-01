@@ -380,6 +380,12 @@ export class MyElement extends LitElement {
           center: "title",
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         },
+        eventTimeFormat: {
+          hour: "numeric",
+          minute: "2-digit",
+          meridiem: "lowercase",
+          omitZeroMinute: true,
+        },
         slotMinTime: "06:00:00",
         nowIndicator: true,
         allDaySlot: false,

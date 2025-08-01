@@ -51,7 +51,6 @@ export class CalendarComponent extends LitElement {
   }
 
   private _calculateInitialDate(events: CalendarEvent[]): string | undefined {
-    console.log("Calculating initial date for events:", events);
     if (events.length === 0) {
       return undefined;
     }
@@ -88,7 +87,6 @@ export class CalendarComponent extends LitElement {
 
   updated(changedProperties: Map<string, any>) {
     if (changedProperties.has("events") && this.calendar) {
-      console.log("Updating calendar with new events:", this.events);
       this.calendar.removeAllEvents();
       this.calendar.addEventSource(this.events);
       const newDate = this._calculateInitialDate(this.events);
@@ -104,11 +102,6 @@ export class CalendarComponent extends LitElement {
     const calendarEl = this.shadowRoot?.querySelector(".calendar-container");
 
     if (calendarEl) {
-      console.log(
-        "Initializing calendar with element:",
-        calendarEl,
-        initialDate
-      );
       this.calendar = new Calendar(calendarEl as HTMLElement, {
         plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         initialView: this.initialView,

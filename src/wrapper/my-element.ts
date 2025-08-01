@@ -133,7 +133,6 @@ export class MyElement extends LitElement {
         const teacher = this.teachers.find(
           (t) => t._id === slot.slot.resource._id
         );
-        console.log("found teacher", teacher);
 
         const teacherOptions = [
           {
@@ -328,7 +327,6 @@ export class MyElement extends LitElement {
       ...info.event.toPlainObject(),
       extendedProps: info.event.extendedProps,
     };
-    console.log("my-element handleEventClick", info.event);
 
     this.selectedEvent = eventDetails;
   }
@@ -347,7 +345,6 @@ export class MyElement extends LitElement {
   }
 
   private handleBooking(e: CustomEvent) {
-    console.log("my-element handleBooking", e.detail);
     this.dispatchEvent(
       new CustomEvent("getPlans", {
         detail: JSON.stringify(e.detail),
@@ -358,7 +355,6 @@ export class MyElement extends LitElement {
   }
 
   private handleViewPackagesSelected(e: CustomEvent) {
-    console.log("my-element handleViewPackagesSelected", e.detail);
     const detail = JSON.parse(e.detail) as Service;
 
     this.dispatchEvent(
